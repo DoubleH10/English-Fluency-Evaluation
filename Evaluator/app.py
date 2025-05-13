@@ -9,7 +9,17 @@ import soundfile as sf
 import sounddevice as sd
 import numpy as np
 import pandas as pd
+import spacy
 
+# Ensure the spaCy model is downloaded on first run (especially for Streamlit Cloud)
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    from spacy.cli import download
+    download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
+
+    
 st.title("Speech Fluency Evaluator")
 
 # Option to record audio in-browser
